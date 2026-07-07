@@ -1,5 +1,5 @@
-# Overlay PROD — namespace classlab-code-prod, images sémver (Image Updater = semver),
-# et Postgres en 3 instances (HA).
+# Overlay PROD — namespace classlab-code-prod, images de la branche master,
+# Postgres en 3 instances (HA) et pods applicatifs autoscalés (HPA 1->5).
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: classlab-code-prod
@@ -7,6 +7,7 @@ namespace: classlab-code-prod
 resources:
   - ../../base
   - jwt-sealedsecret.yaml
+  - hpa.yaml
 
 images:
   - name: ghcr.io/mateplo/udagram-frontend

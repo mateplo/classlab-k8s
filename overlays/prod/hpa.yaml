@@ -1,0 +1,63 @@
+# Autoscaling PROD uniquement : chaque Deployment applicatif scale de 1 à 5 pods
+# selon la charge CPU (cible 80% de la request CPU). Nécessite metrics-server (présent
+# sur k3s) et des `requests.cpu` sur les conteneurs (définies dans la base). Namespace
+# injecté par l'overlay (classlab-code-prod).
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: frontend }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 80 } }
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: reverseproxy
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: reverseproxy }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 80 } }
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-user
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: backend-user }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 80 } }
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-feed
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: backend-feed }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 80 } }
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-image-filter
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: backend-image-filter }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 80 } }
