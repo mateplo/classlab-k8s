@@ -1,0 +1,14 @@
+# Config applicative non secrète, commune aux backends.
+# - URL : origine autorisée (CORS) -> patchée par overlay avec le hostname de l'env.
+# - AWS_* : médias DIFFÉRÉS. AWS_PROFILE=DEPLOYED fait sauter la lecture de ~/.aws
+#   (cf. aws.ts) -> les pods démarrent ; l'upload S3 échouera à l'exécution jusqu'à
+#   ce qu'on branche un vrai stockage (MinIO ou S3 réel).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-env
+data:
+  URL: "https://udagram.classlab.lan"
+  AWS_PROFILE: "DEPLOYED"
+  AWS_REGION: "us-east-1"
+  AWS_MEDIA_BUCKET: "udagram-media-placeholder"

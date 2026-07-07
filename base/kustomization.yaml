@@ -1,0 +1,27 @@
+# Base kustomize Udagram — commune aux 3 environnements.
+# Les overlays (dev/staging/prod) fixent : namespace, tags d'image (GHCR), hostname
+# HTTPRoute, SealedSecret JWT, et le nombre d'instances CNPG (3 en prod).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - app-configmap.yaml
+  - reverseproxy.yaml
+  - frontend.yaml
+  - backend-user.yaml
+  - backend-feed.yaml
+  - backend-image-filter.yaml
+  - cnpg-cluster.yaml
+  - httproute.yaml
+
+# Images surveillées par Argo CD Image Updater (le reverseproxy est un nginx stock
+# avec sa conf en ConfigMap, donc non listé ici). Les overlays surchargent newTag.
+images:
+  - name: ghcr.io/mateplo/udagram-frontend
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-user
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-feed
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-image-filter
+    newTag: latest

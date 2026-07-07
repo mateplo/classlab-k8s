@@ -1,0 +1,37 @@
+# Overlay PROD — namespace classlab-code-prod, images sémver (Image Updater = semver),
+# et Postgres en 3 instances (HA).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: classlab-code-prod
+
+resources:
+  - ../../base
+  - jwt-sealedsecret.yaml
+
+images:
+  - name: ghcr.io/mateplo/udagram-frontend
+    newTag: 0.1.0
+  - name: ghcr.io/mateplo/udagram-restapi-user
+    newTag: 0.1.0
+  - name: ghcr.io/mateplo/udagram-restapi-feed
+    newTag: 0.1.0
+  - name: ghcr.io/mateplo/udagram-restapi-image-filter
+    newTag: 0.1.0
+
+patches:
+  - target: { kind: ConfigMap, name: app-env }
+    patch: |
+      - op: replace
+        path: /data/URL
+        value: https://udagram.classlab.lan
+  - target: { kind: HTTPRoute, name: udagram }
+    patch: |
+      - op: replace
+        path: /spec/hostnames/0
+        value: udagram.classlab.lan
+  # Postgres HA : 3 instances (1 primary + 2 replicas).
+  - target: { group: postgresql.cnpg.io, kind: Cluster, name: udagram-db }
+    patch: |
+      - op: replace
+        path: /spec/instances
+        value: 3

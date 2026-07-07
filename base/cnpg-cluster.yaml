@@ -1,0 +1,34 @@
+# Base PostgreSQL gérée par l'opérateur CNPG. instances=1 (patché à 3 en prod).
+# CNPG génère le Secret `udagram-db-app` (clés username/password/dbname/host/port/uri)
+# consommé par backend-user et backend-feed (base partagée). Les tables sont créées au
+# boot des backends via sequelize.sync() -> pas de job de migration.
+# sync-wave 0 : la base précède les backends (wave 1).
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: udagram-db
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  instances: 1
+  storage:
+    size: 1Gi
+    storageClass: local-path
+  bootstrap:
+    initdb:
+      database: udagram
+      owner: udagram
+  # PodMonitor pour Prometheus (cohérent avec le monitoring déjà déployé).
+  monitoring:
+    enablePodMonitor: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+  # Anti-affinité préférée (défaut CNPG) : sur 2 nœuds, les 3 instances prod se
+  # répartissent au mieux (2 co-localisées), sans bloquer le scheduling.
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname

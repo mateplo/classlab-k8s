@@ -1,0 +1,30 @@
+# Overlay STAGING — namespace classlab-code-staging, images :latest.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: classlab-code-staging
+
+resources:
+  - ../../base
+  - jwt-sealedsecret.yaml
+
+images:
+  - name: ghcr.io/mateplo/udagram-frontend
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-user
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-feed
+    newTag: latest
+  - name: ghcr.io/mateplo/udagram-restapi-image-filter
+    newTag: latest
+
+patches:
+  - target: { kind: ConfigMap, name: app-env }
+    patch: |
+      - op: replace
+        path: /data/URL
+        value: https://udagram-staging.classlab.lan
+  - target: { kind: HTTPRoute, name: udagram }
+    patch: |
+      - op: replace
+        path: /spec/hostnames/0
+        value: udagram-staging.classlab.lan

@@ -1,0 +1,46 @@
+# API de filtrage d'image (Node), sans état : ni base ni S3. Ne lit que URL.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-image-filter
+  labels:
+    app: backend-image-filter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-image-filter
+  template:
+    metadata:
+      labels:
+        app: backend-image-filter
+    spec:
+      containers:
+        - name: backend-image-filter
+          image: ghcr.io/mateplo/udagram-restapi-image-filter:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          env:
+            - name: PORT
+              value: "8080"
+            - name: URL
+              valueFrom: { configMapKeyRef: { name: app-env, key: URL } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-image-filter
+  labels:
+    app: backend-image-filter
+spec:
+  selector:
+    app: backend-image-filter
+  ports:
+    - port: 8080
+      targetPort: 8080
