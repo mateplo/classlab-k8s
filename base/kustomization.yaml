@@ -13,6 +13,7 @@ resources:
   - backend-image-filter.yaml
   - cnpg-cluster.yaml
   - httproute.yaml
+  - servicemonitors.yaml
 
 # Images surveillées par Argo CD Image Updater (le reverseproxy est un nginx stock
 # avec sa conf en ConfigMap, donc non listé ici). Les overlays surchargent newTag.

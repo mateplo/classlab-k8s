@@ -1,0 +1,39 @@
+# ServiceMonitors des backends : Prometheus scrape /metrics sur le port `http` (8080).
+# Placés dans la base -> les 3 envs en héritent (namespace injecté par l'overlay).
+# kube-prometheus-stack découvre les ServiceMonitor de TOUS les namespaces
+# (serviceMonitorSelectorNilUsesHelmValues=false), donc rien d'autre à configurer.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-user
+spec:
+  selector:
+    matchLabels:
+      app: backend-user
+  endpoints:
+    - port: http
+      path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-feed
+spec:
+  selector:
+    matchLabels:
+      app: backend-feed
+  endpoints:
+    - port: http
+      path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-image-filter
+spec:
+  selector:
+    matchLabels:
+      app: backend-image-filter
+  endpoints:
+    - port: http
+      path: /metrics

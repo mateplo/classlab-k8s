@@ -42,5 +42,6 @@ spec:
   selector:
     app: backend-image-filter
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
