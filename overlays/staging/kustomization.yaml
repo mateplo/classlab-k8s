@@ -9,13 +9,13 @@ resources:
 
 images:
   - name: ghcr.io/mateplo/udagram-frontend
-    newTag: latest
+    newTag: staging
   - name: ghcr.io/mateplo/udagram-restapi-user
-    newTag: latest
+    newTag: staging
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: latest
+    newTag: staging
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: latest
+    newTag: staging
 
 patches:
   - target: { kind: ConfigMap, name: app-env }
