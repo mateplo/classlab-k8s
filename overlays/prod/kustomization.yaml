@@ -3,12 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: classlab-code-prod
-
 resources:
   - ../../base
   - jwt-sealedsecret.yaml
   - hpa.yaml
-
 images:
   - name: ghcr.io/mateplo/udagram-frontend
     newTag: master
@@ -17,21 +15,21 @@ images:
   - name: ghcr.io/mateplo/udagram-restapi-feed
     newTag: master
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: master
-
+    newTag: master-5610a5c
+    newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
-  - target: { kind: ConfigMap, name: app-env }
+  - target: {kind: ConfigMap, name: app-env}
     patch: |
       - op: replace
         path: /data/URL
         value: https://udagram.classlab.lan
-  - target: { kind: HTTPRoute, name: udagram }
+  - target: {kind: HTTPRoute, name: udagram}
     patch: |
       - op: replace
         path: /spec/hostnames/0
         value: udagram.classlab.lan
   # Postgres HA : 3 instances (1 primary + 2 replicas).
-  - target: { group: postgresql.cnpg.io, kind: Cluster, name: udagram-db }
+  - target: {group: postgresql.cnpg.io, kind: Cluster, name: udagram-db}
     patch: |
       - op: replace
         path: /spec/instances
