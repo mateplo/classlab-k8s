@@ -16,7 +16,7 @@ images:
     newTag: dev-415df92
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: dev-415df92
+    newTag: dev-6e697ed
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
