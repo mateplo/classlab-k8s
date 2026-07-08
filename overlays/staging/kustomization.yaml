@@ -7,7 +7,8 @@ resources:
   - jwt-sealedsecret.yaml
 images:
   - name: ghcr.io/mateplo/udagram-frontend
-    newTag: staging
+    newTag: staging-b34b993
+    newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
     newTag: staging-b34b993
     newName: ghcr.io/mateplo/udagram-restapi-user
