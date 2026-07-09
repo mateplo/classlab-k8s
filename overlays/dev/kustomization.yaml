@@ -7,7 +7,7 @@ resources:
   - jwt-sealedsecret.yaml
 images:
   - name: ghcr.io/mateplo/udagram-frontend
-    newTag: dev-c8721f3
+    newTag: dev-fcf7036
     newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
     newTag: dev-fcf7036
