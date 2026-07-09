@@ -9,16 +9,16 @@ resources:
   - hpa.yaml
 images:
   - name: ghcr.io/mateplo/udagram-frontend
-    newTag: master-5610a5c
+    newTag: master-8944632
     newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
-    newTag: master-5610a5c
+    newTag: master-8944632
     newName: ghcr.io/mateplo/udagram-restapi-user
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: master-5610a5c
+    newTag: master-8944632
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: master-5610a5c
+    newTag: master-8944632
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
