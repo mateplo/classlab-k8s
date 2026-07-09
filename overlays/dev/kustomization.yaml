@@ -10,13 +10,13 @@ images:
     newTag: dev-c8721f3
     newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
-    newTag: dev-c8721f3
+    newTag: dev-fcf7036
     newName: ghcr.io/mateplo/udagram-restapi-user
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: dev-c8721f3
+    newTag: dev-fcf7036
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: dev-c8721f3
+    newTag: dev-fcf7036
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
