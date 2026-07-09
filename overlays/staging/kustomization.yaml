@@ -13,10 +13,10 @@ images:
     newTag: staging-60e7d04
     newName: ghcr.io/mateplo/udagram-restapi-user
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: staging-60e7d04
+    newTag: staging-7dcb357
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: staging-60e7d04
+    newTag: staging-7dcb357
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
