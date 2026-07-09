@@ -12,13 +12,13 @@ images:
     newTag: master-8944632
     newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
-    newTag: master-8944632
+    newTag: master-f58b8fb
     newName: ghcr.io/mateplo/udagram-restapi-user
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: master-8944632
+    newTag: master-f58b8fb
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: master-8944632
+    newTag: master-f58b8fb
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
