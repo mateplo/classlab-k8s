@@ -7,16 +7,16 @@ resources:
   - jwt-sealedsecret.yaml
 images:
   - name: ghcr.io/mateplo/udagram-frontend
-    newTag: dev-fcf7036
+    newTag: dev-8477804
     newName: ghcr.io/mateplo/udagram-frontend
   - name: ghcr.io/mateplo/udagram-restapi-user
-    newTag: dev-fcf7036
+    newTag: dev-8477804
     newName: ghcr.io/mateplo/udagram-restapi-user
   - name: ghcr.io/mateplo/udagram-restapi-feed
-    newTag: dev-fcf7036
+    newTag: dev-8477804
     newName: ghcr.io/mateplo/udagram-restapi-feed
   - name: ghcr.io/mateplo/udagram-restapi-image-filter
-    newTag: dev-fcf7036
+    newTag: dev-8477804
     newName: ghcr.io/mateplo/udagram-restapi-image-filter
 patches:
   - target: {kind: ConfigMap, name: app-env}
